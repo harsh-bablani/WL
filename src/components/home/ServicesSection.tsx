@@ -3,31 +3,31 @@ import { Activity, Users, Target, Smartphone, ArrowRight, Heart, ShieldCheck, Ba
 const solutions = [
   {
     icon: Heart,
-    title: 'Health Risk Assessment',
-    description: 'Comprehensive health screenings and risk stratification to identify potential health issues before they become problems.',
+    title: 'Blood Tests',
+    description: 'Comprehensive diagnostic tests including CBC, Lipid Profile, Thyroid, and more with accurate results.',
     color: 'bg-red-50 text-red-500',
-    features: ['Risk stratification', 'Health scoring', 'Preventive insights']
+    features: ['NABL certified', '6-hour reporting', 'Online results']
   },
   {
     icon: Users,
-    title: 'Personal Health Coaching',
-    description: 'One-on-one coaching with certified health professionals to guide employees on their wellness journey.',
+    title: 'Health Packages',
+    description: 'Complete health screening packages for preventive care and regular health monitoring.',
     color: 'bg-teal-50 text-teal-500',
-    features: ['Personalized plans', 'Regular check-ins', 'Goal tracking']
+    features: ['Multiple tests', 'Discounted pricing', 'Expert consultation']
   },
   {
     icon: Activity,
-    title: 'Biometric Screenings',
-    description: 'On-site health screenings including blood pressure, cholesterol, glucose, and BMI measurements.',
+    title: 'Home Collection',
+    description: 'Book sample collection from home with trained phlebotomists and hygiene protocols.',
     color: 'bg-blue-50 text-blue-500',
-    features: ['On-site services', 'Immediate results', 'Group reporting']
+    features: ['At-home service', 'Same day collection', 'Safety protocols']
   },
   {
     icon: Target,
-    title: 'Targeted Communications',
-    description: 'Personalized messaging and interventions based on individual health risks and goals.',
+    title: 'Corporate Wellness',
+    description: 'Customized wellness programs for organizations with comprehensive health screening and reporting.',
     color: 'bg-emerald-50 text-emerald-500',
-    features: ['Custom messaging', 'Risk-based content', 'Automated outreach']
+    features: ['Group discounts', 'On-site camps', 'Health analytics']
   }
 ];
 
@@ -38,11 +38,12 @@ export default function ServicesSection() {
         <div className="text-center mb-16">
           <span className="text-teal-500 font-semibold text-sm uppercase tracking-wider">Our Solutions</span>
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-gray-900">
-            Why Choose Wellness Healthcare For Your Workplace?
+            Why Choose Wellness Healthcare For Your Health Needs?
           </h2>
           <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-            We strategize with your team to design a program that meets your organizational goals 
-            and delivers measurable health outcomes.
+            Choose from our comprehensive diagnostic services including blood tests, 
+            health packages, home collection, and corporate wellness programs. 
+            Get accurate results from NABL certified labs.
           </p>
         </div>
 

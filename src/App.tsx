@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/home/HeroSection';
-import DataOutcomes from './components/home/DataOutcomes';
+import DataOutcomes from './components/home/DataOutcomesFixed';
 import ServicesSection from './components/home/ServicesSection';
-import TechnologySection from './components/home/TechnologySection';
-import Testimonials from './components/home/Testimonials';
-import TrustedCompanies from './components/home/TrustedCompanies';
 import CTASection from './components/home/CTASection';
 import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
@@ -29,9 +26,6 @@ function App() {
           <HeroSection onNavigate={handleNavigate} />
           <DataOutcomes />
           <ServicesSection />
-          <TechnologySection />
-          <Testimonials />
-          <TrustedCompanies />
           <CTASection onNavigate={handleNavigate} />
         </main>
       )}

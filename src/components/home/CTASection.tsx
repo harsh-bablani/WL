@@ -8,7 +8,7 @@ interface CTASectionProps {
 
 export default function CTASection({ onNavigate }: CTASectionProps) {
 
-  const handleBookNow = () => {
+  const handleBookDemo = () => {
     onNavigate('contact');
   };
 
@@ -20,44 +20,44 @@ export default function CTASection({ onNavigate }: CTASectionProps) {
       
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-12 border border-white/20">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-            Take Charge of Your Health Today
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Ready to Transform Your Workplace Wellness?
           </h2>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Book your diagnostic tests now and get accurate results from NABL accredited labs. 
-            Your journey to better health starts here.
+            Join hundreds of organizations that have achieved measurable health outcomes 
+            and ROI with our data-driven wellness programs.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <button
-              onClick={handleBookNow}
-              className="flex items-center justify-center gap-2 bg-white text-teal-600 font-semibold px-8 py-4 rounded-full transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+              onClick={handleBookDemo}
+              className="bg-white text-teal-600 font-semibold px-8 py-4 rounded-full hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
-              Book Now
+              Book a Demo
               <ArrowRight className="w-4 h-4" />
             </button>
             
             <a
               href="tel:+918001234567"
-              className="flex items-center justify-center gap-2 bg-white/20 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-full border border-white/30 transition-all duration-200 hover:bg-white/30"
+              className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 border border-white/30"
             >
               <Phone className="w-4 h-4" />
-              Call +91 800 123 4567
+              1.800.425.4657
             </a>
           </div>
           
           <div className="flex flex-wrap justify-center gap-6 text-white/80 text-sm">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
-              <span>Same-day appointments</span>
+              <span>Flexible scheduling</span>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              <span>24/7 support</span>
+              <span>Expert consultation</span>
             </div>
             <div className="flex items-center gap-2">
               <ArrowRight className="w-4 h-4" />
-              <span>Reports in 6 hours</span>
+              <span>Proven results</span>
             </div>
           </div>
         </div>
