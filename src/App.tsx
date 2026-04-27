@@ -1,12 +1,15 @@
 import { useState } from 'react';
-import Navbar from './components/Navbar';
-import HeroSection from './components/home/HeroSection';
-import DataOutcomes from './components/home/DataOutcomesFixed';
-import ServicesSection from './components/home/ServicesSection';
-import CTASection from './components/home/CTASection';
-import AboutPage from './components/AboutPage';
-import ContactPage from './components/ContactPage';
-import Footer from './components/Footer';
+import ModernHeader from './components/ModernHeader';
+import ModernHero from './components/ModernHero';
+import QuickActions from './components/QuickActions';
+import HealthPackages from './components/HealthPackages';
+import PopularTests from './components/PopularTests';
+import ServicesGrid from './components/ServicesGrid';
+import TrustSection from './components/TrustSection';
+import Testimonials from './components/Testimonials';
+import BlogHealthTips from './components/BlogHealthTips';
+import ModernFooter from './components/ModernFooter';
+import FloatingElements from './components/FloatingElements';
 
 type Page = 'home' | 'about' | 'contact';
 
@@ -19,21 +22,23 @@ function App() {
 
   return (
     <div className="min-h-screen">
-      <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
+      <ModernHeader />
       
       {currentPage === 'home' && (
         <main>
-          <HeroSection onNavigate={handleNavigate} />
-          <DataOutcomes />
-          <ServicesSection />
-          <CTASection onNavigate={handleNavigate} />
+          <ModernHero />
+          <QuickActions />
+          <HealthPackages />
+          <PopularTests />
+          <ServicesGrid />
+          <TrustSection />
+          <Testimonials />
+          <BlogHealthTips />
         </main>
       )}
       
-      {currentPage === 'about' && <AboutPage onNavigate={handleNavigate} />}
-      {currentPage === 'contact' && <ContactPage />}
-      
-      <Footer onNavigate={handleNavigate} />
+      <ModernFooter />
+      <FloatingElements />
     </div>
   );
 }
