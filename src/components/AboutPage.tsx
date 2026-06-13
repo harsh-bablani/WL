@@ -1,10 +1,10 @@
-import { ShieldCheck, Award, Users, Clock, ArrowRight, Heart, Target, Lightbulb } from 'lucide-react';
+import { ShieldCheck, Award, Users, Clock, ArrowRight, Heart, Target, Lightbulb, Phone, MessageCircle, MapPin } from 'lucide-react';
 import { useState } from 'react';
 
-type Page = 'home' | 'about' | 'contact';
+type Page = 'home' | 'about' | 'contact' | 'packages';
 
 interface AboutPageProps {
-  onNavigate: (page: Page) => void;
+  onNavigate?: (page: Page) => void;
 }
 
 export default function AboutPage({ onNavigate }: AboutPageProps) {
@@ -12,27 +12,27 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
 
   const teamMembers = [
     {
-      name: 'Dr. Sarah Johnson',
+      name: 'Dr. Rajesh Sharma',
       role: 'Medical Director',
-      image: 'https://images.pexels.com/photos/5439367/pexels-photo-5439367.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
       description: '15+ years of experience in clinical pathology'
     },
     {
-      name: 'Dr. Michael Chen',
+      name: 'Dr. Priya Verma',
       role: 'Lab Director',
-      image: 'https://images.pexels.com/photos/8376268/pexels-photo-8376268.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
       description: 'Expert in molecular diagnostics and genetics'
     },
     {
-      name: 'Dr. Emily Rodriguez',
+      name: 'Dr. Amit Kumar',
       role: 'Head of Quality',
-      image: 'https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
       description: 'NABL certified quality management specialist'
     },
     {
-      name: 'Dr. James Wilson',
+      name: 'Dr. Sunita Devi',
       role: 'Senior Pathologist',
-      image: 'https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
       description: 'Specialist in hematology and immunology'
     }
   ];
@@ -84,30 +84,39 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Pioneering Healthcare Excellence Since 2010
+                Pioneering Healthcare Excellence in Jaipur Since 2010
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6">
-                Wellness Healthcare has been at the forefront of diagnostic services, 
+                Wellness Healthcare has been at the forefront of diagnostic services in Jaipur, 
                 serving over 50,000 patients with precision and care. Our state-of-the-art 
                 laboratories are equipped with the latest technology to ensure accurate and 
                 timely results.
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
-                We believe in making quality healthcare accessible to everyone. With a network 
-                of NABL accredited labs across the region, we bring world-class diagnostic 
-                services closer to your home.
+                We believe in making quality healthcare accessible to everyone. With our NABL 
+                accredited lab at 51/5 Shipra Path, Mansarovar, we bring world-class diagnostic 
+                services closer to your home across Jaipur.
               </p>
-              <button
-                onClick={() => onNavigate('contact')}
-                className="flex items-center gap-2 bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-3 rounded-full transition-all duration-200"
-              >
-                Get in Touch
-                <ArrowRight className="w-4 h-4" />
-              </button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={() => onNavigate && onNavigate('contact')}
+                  className="flex items-center justify-center gap-2 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
+                >
+                  <Phone className="w-4 h-4" />
+                  Get in Touch
+                </button>
+                <button
+                  onClick={() => onNavigate && onNavigate('packages')}
+                  className="flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-700 font-semibold px-6 py-3 rounded-xl transition-all duration-200 border border-gray-300 hover:border-gray-400"
+                >
+                  View Packages
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=800"
+                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
                 alt="Modern laboratory"
                 className="rounded-2xl shadow-2xl w-full h-[400px] object-cover"
               />
@@ -229,12 +238,24 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
           <p className="text-lg text-white/90 mb-8">
             Join thousands of satisfied patients who trust us with their health
           </p>
-          <button
-            onClick={() => onNavigate('contact')}
-            className="bg-white text-teal-600 font-semibold px-8 py-4 rounded-full hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl"
-          >
-            Book Your Test Today
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => onNavigate && onNavigate('contact')}
+              className="flex items-center justify-center gap-2 bg-white text-teal-600 font-semibold px-8 py-4 rounded-xl hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              <Phone className="w-4 h-4" />
+              Book Your Test Today
+            </button>
+            <a
+              href="https://wa.me/919829078973"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              <MessageCircle className="w-4 h-4" />
+              WhatsApp Now
+            </a>
+          </div>
         </div>
       </section>
     </div>

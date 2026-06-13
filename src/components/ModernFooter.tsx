@@ -1,6 +1,12 @@
 import { Phone, MessageCircle, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Linkedin, ChevronRight } from 'lucide-react';
 
-export default function ModernFooter() {
+type Page = 'home' | 'about' | 'contact' | 'packages';
+
+interface ModernFooterProps {
+  onNavigate?: (page: Page) => void;
+}
+
+export default function ModernFooter({ onNavigate }: ModernFooterProps) {
   return (
     <footer className="bg-gray-900 text-white">
       {/* Google Maps Section */}
@@ -123,12 +129,22 @@ export default function ModernFooter() {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-3">
-              {['About Us', 'Our Services', 'Health Packages', 'Book Test', 'Upload Prescription', 'Home Collection'].map((link, index) => (
+              {[
+                { name: 'About Us', page: 'about' as Page },
+                { name: 'Our Services', page: 'home' as Page },
+                { name: 'Health Packages', page: 'packages' as Page },
+                { name: 'Book Test', page: 'home' as Page },
+                { name: 'Upload Prescription', page: 'contact' as Page },
+                { name: 'Home Collection', page: 'contact' as Page }
+              ].map((item, index) => (
                 <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-teal-400 transition-colors duration-200 flex items-center gap-2">
+                  <button
+                    onClick={() => onNavigate && onNavigate(item.page)}
+                    className="text-gray-400 hover:text-teal-400 transition-colors duration-200 flex items-center gap-2 w-full text-left"
+                  >
                     <ChevronRight className="w-4 h-4" />
-                    {link}
-                  </a>
+                    {item.name}
+                  </button>
                 </li>
               ))}
             </ul>

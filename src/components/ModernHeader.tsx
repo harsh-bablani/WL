@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Search, Phone, MessageCircle, Upload, Menu, X, ChevronDown } from 'lucide-react';
+import { Search, Phone, MessageCircle, Upload, Menu, X } from 'lucide-react';
 
-export default function ModernHeader() {
+type Page = 'home' | 'about' | 'contact' | 'packages';
+
+interface ModernHeaderProps {
+  onNavigate?: (page: Page) => void;
+  currentPage?: Page;
+}
+
+export default function ModernHeader({ onNavigate, currentPage }: ModernHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -67,14 +74,22 @@ export default function ModernHeader() {
             {/* Desktop Navigation & CTAs */}
             <div className="hidden lg:flex items-center space-x-6">
               <nav className="flex items-center space-x-8">
-                {['Home', 'Tests', 'Packages', 'About', 'Contact'].map((item, index) => (
-                  <a
+                {[
+                  { name: 'Home', page: 'home' as Page },
+                  { name: 'Tests', page: 'home' as Page },
+                  { name: 'Packages', page: 'packages' as Page },
+                  { name: 'About', page: 'about' as Page },
+                  { name: 'Contact', page: 'contact' as Page }
+                ].map((item, index) => (
+                  <button
                     key={index}
-                    href="#"
-                    className="text-gray-700 hover:text-teal-600 font-medium transition-colors duration-200"
+                    onClick={() => onNavigate && onNavigate(item.page)}
+                    className={`text-gray-700 hover:text-teal-600 font-medium transition-colors duration-200 ${
+                      currentPage === item.page ? 'text-teal-600' : ''
+                    }`}
                   >
-                    {item}
-                  </a>
+                    {item.name}
+                  </button>
                 ))}
               </nav>
               
@@ -124,14 +139,25 @@ export default function ModernHeader() {
         }`}>
           <div className="bg-white border-t border-gray-100">
             <nav className="px-4 py-4 space-y-2">
-              {['Home', 'Tests', 'Packages', 'About', 'Contact'].map((item, index) => (
-                <a
+              {[
+                { name: 'Home', page: 'home' as Page },
+                { name: 'Tests', page: 'home' as Page },
+                { name: 'Packages', page: 'packages' as Page },
+                { name: 'About', page: 'about' as Page },
+                { name: 'Contact', page: 'contact' as Page }
+              ].map((item, index) => (
+                <button
                   key={index}
-                  href="#"
-                  className="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                  onClick={() => {
+                    onNavigate && onNavigate(item.page);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200 ${
+                    currentPage === item.page ? 'text-teal-600' : ''
+                  }`}
                 >
-                  {item}
-                </a>
+                  {item.name}
+                </button>
               ))}
             </nav>
             

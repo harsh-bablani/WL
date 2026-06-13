@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail, Clock, Send, User, MessageSquare } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, User, MessageSquare, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 
 export default function ContactPage() {
@@ -29,17 +29,17 @@ export default function ContactPage() {
       icon: MapPin,
       title: 'Visit Our Main Lab',
       details: [
-        '123 Healthcare Avenue,',
-        'Medical District,',
-        'Mumbai, Maharashtra 400001'
+        '51/5 Shipra Path, Mansarovar,',
+        'Jaipur, Rajasthan 302020',
+        'NABL Accredited Laboratory'
       ]
     },
     {
       icon: Phone,
       title: 'Call Us',
       details: [
-        '+91 800 123 4567',
-        '+91 22 2345 6789',
+        '9829078973',
+        '9214499993',
         'Available 24/7'
       ]
     },
@@ -47,7 +47,7 @@ export default function ContactPage() {
       icon: Mail,
       title: 'Email Us',
       details: [
-        'info@wellnesshealthcare.com',
+        'wellness.raj@gmail.com',
         'support@wellnesshealthcare.com',
         'Response within 2 hours'
       ]
@@ -56,8 +56,8 @@ export default function ContactPage() {
       icon: Clock,
       title: 'Working Hours',
       details: [
-        'Mon - Sat: 6:00 AM - 10:00 PM',
-        'Sunday: 7:00 AM - 8:00 PM',
+        'Mon - Sat: 8:00 AM - 8:00 PM',
+        'Sunday: 9:00 AM - 6:00 PM',
         'Emergency: 24/7 Available'
       ]
     }
@@ -240,11 +240,16 @@ export default function ContactPage() {
                 <MapPin className="w-16 h-16 text-teal-600 mx-auto mb-4" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Find Us Here</h3>
                 <p className="text-gray-600 mb-4">
-                  123 Healthcare Avenue, Medical District, Mumbai 400001
+                  51/5 Shipra Path, Mansarovar, Jaipur 302020
                 </p>
-                <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200">
+                <a
+                  href="https://maps.google.com/?q=51/5+Shipra+Path+Mansarovar+Jaipur"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200"
+                >
                   Get Directions
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -259,15 +264,21 @@ export default function ContactPage() {
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
             <a
-              href="tel:+918001234567"
+              href="tel:9829078973"
               className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold px-6 py-4 rounded-xl transition-all duration-200 border border-white/30"
             >
               <Phone className="w-5 h-5 inline mr-2" />
-              Call Now: +91 800 123 4567
+              Call Now: 9829078973
             </a>
-            <button className="bg-white text-teal-600 font-semibold px-6 py-4 rounded-xl hover:bg-gray-50 transition-all duration-200">
-              Book Home Collection
-            </button>
+            <a
+              href="https://wa.me/919829078973"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-teal-600 font-semibold px-6 py-4 rounded-xl hover:bg-gray-50 transition-all duration-200"
+            >
+              <MessageCircle className="w-5 h-5 inline mr-2" />
+              WhatsApp Now
+            </a>
           </div>
         </div>
       </section>
