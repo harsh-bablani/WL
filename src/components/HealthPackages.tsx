@@ -1,4 +1,7 @@
-import { CheckCircle, Star, Clock, Users, Package, TrendingUp } from 'lucide-react';
+import { CheckCircle, Star, Clock, Users, Package, TrendingUp, X, Phone, ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
+import { useCart } from '../contexts/CartContext';
+import AnimatedCounter from './AnimatedCounter';
 
 const healthPackages = [
   {
@@ -94,6 +97,24 @@ const healthPackages = [
 ];
 
 export default function HealthPackagesSection() {
+  const [selectedPackage, setSelectedPackage] = useState<typeof healthPackages[0] | null>(null);
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    if (selectedPackage) {
+      addToCart({
+        id: selectedPackage.name.toLowerCase().replace(' ', '-'),
+        name: selectedPackage.name,
+        testCount: selectedPackage.testCount,
+        price: selectedPackage.price,
+        originalPrice: selectedPackage.originalPrice,
+        discount: selectedPackage.discount,
+        color: selectedPackage.color
+      });
+      setSelectedPackage(null);
+    }
+  };
+
   return (
     <section className="py-16 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -112,107 +133,126 @@ export default function HealthPackagesSection() {
         </div>
 
         {/* Package Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
           {healthPackages.map((pkg, index) => (
             <div
               key={index}
-              className={`group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden ${
-                pkg.popular ? 'ring-2 ring-teal-500' : ''
-              }`}
+              className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
             >
-              {/* Popular Badge */}
-              {pkg.popular && (
-                <div className="absolute -top-3 -right-3 z-10">
-                  <div className={`bg-gradient-to-r ${pkg.color} text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg`}>
-                    {pkg.badge}
-                  </div>
-                </div>
-              )}
 
               {/* Package Header */}
-              <div className={`bg-gradient-to-r ${pkg.color} p-6 text-white`}>
-                <div className="flex items-center justify-between mb-4">
+              <div className={`bg-gradient-to-r ${pkg.color} p-4 text-white`}>
+                <div className="flex items-center justify-between mb-2">
                   <div>
-                    <h3 className="text-2xl font-bold">{pkg.name}</h3>
-                    <p className="text-white/90">{pkg.testCount} Tests Included</p>
+                    <h3 className="text-xl font-bold">{pkg.name}</h3>
+                    <p className="text-white/90 text-sm">{pkg.testCount} Tests</p>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold">₹{pkg.price}</div>
+                    <div className="text-2xl font-bold">₹{pkg.price}</div>
                     {pkg.originalPrice && (
-                      <div className="text-sm text-white/70 line-through">₹{pkg.originalPrice}</div>
+                      <div className="text-xs text-white/70 line-through">₹{pkg.originalPrice}</div>
                     )}
                   </div>
                 </div>
-                
-                {/* Discount Badge */}
-                {pkg.discount && (
-                  <div className="inline-flex items-center gap-1 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
-                    <TrendingUp className="w-4 h-4" />
-                    <span>Save {pkg.discount}%</span>
-                  </div>
-                )}
               </div>
 
-              {/* Package Content */}
-              <div className="p-6">
-                {/* Key Inclusions */}
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Key Inclusions:</h4>
-                  <div className="space-y-2 max-h-40 overflow-y-auto">
-                    {pkg.inclusions.slice(0, 5).map((test, testIndex) => (
-                      <div key={testIndex} className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                        <span>{test}</span>
-                      </div>
-                    ))}
-                    {pkg.inclusions.length > 5 && (
-                      <div className="text-sm text-teal-600 font-medium">
-                        +{pkg.inclusions.length - 5} more tests
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Features */}
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Features:</h4>
-                  <div className="space-y-2">
-                    {pkg.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-center gap-2 text-sm text-gray-600">
-                        <div className="w-1.5 h-1.5 bg-teal-500 rounded-full" />
-                        <span>{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Book Button */}
-                <button className={`w-full bg-gradient-to-r ${pkg.color} hover:opacity-90 text-white font-semibold py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg`}>
-                  Book Now
+              {/* Package Content - Simplified */}
+              <div className="p-4">
+                <button
+                  onClick={() => setSelectedPackage(pkg)}
+                  className={`w-full bg-gradient-to-r ${pkg.color} hover:opacity-90 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg`}
+                >
+                  View Details
                 </button>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom Stats */}
-        <div className="grid md:grid-cols-4 gap-6">
-          {[
-            { icon: Users, number: '10,000+', label: 'Happy Customers' },
-            { icon: Star, number: '4.8★', label: 'Average Rating' },
-            { icon: Clock, number: '6 Hours', label: 'Fast Reporting' },
-            { icon: CheckCircle, number: '100%', label: 'NABL Certified' }
-          ].map((stat, index) => (
-            <div key={index} className="text-center p-4 bg-white rounded-xl shadow-md">
-              <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mx-auto mb-2">
-                <stat.icon className="w-6 h-6 text-teal-600" />
-              </div>
-              <div className="text-2xl font-bold text-gray-900">{stat.number}</div>
-              <p className="text-sm text-gray-600">{stat.label}</p>
-            </div>
-          ))}
-        </div>
       </div>
+
+      {/* Package Detail Modal */}
+      {selectedPackage && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className={`bg-gradient-to-r ${selectedPackage.color} p-6 text-white`}>
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-3xl font-bold mb-2">{selectedPackage.name}</h3>
+                  <p className="text-white/90">{selectedPackage.testCount} Tests Included</p>
+                </div>
+                <button
+                  onClick={() => setSelectedPackage(null)}
+                  className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              
+              <div className="flex items-center gap-4 mt-4">
+                <div className="text-4xl font-bold">₹{selectedPackage.price}</div>
+                {selectedPackage.originalPrice && (
+                  <div className="text-xl text-white/70 line-through">₹{selectedPackage.originalPrice}</div>
+                )}
+                {selectedPackage.discount && (
+                  <div className="inline-flex items-center gap-1 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+                    <TrendingUp className="w-4 h-4" />
+                    <span>Save {selectedPackage.discount}%</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6">
+              {/* Key Inclusions */}
+              <div className="mb-6">
+                <h4 className="text-xl font-bold text-gray-900 mb-4">Key Inclusions:</h4>
+                <div className="space-y-3">
+                  {selectedPackage.inclusions.map((test, testIndex) => (
+                    <div key={testIndex} className="flex items-center gap-3 text-gray-700">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <span>{test}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Features */}
+              <div className="mb-6">
+                <h4 className="text-xl font-bold text-gray-900 mb-4">Features:</h4>
+                <div className="space-y-3">
+                  {selectedPackage.features.map((feature, featureIndex) => (
+                    <div key={featureIndex} className="flex items-center gap-3 text-gray-700">
+                      <div className="w-2 h-2 bg-teal-500 rounded-full" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                <button
+                  onClick={handleAddToCart}
+                  className={`flex-1 flex items-center justify-center gap-3 bg-gradient-to-r ${selectedPackage.color} hover:opacity-90 text-white font-bold text-lg py-5 px-6 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl`}
+                >
+                  <ShoppingCart className="w-7 h-7" />
+                  Add to Cart
+                </button>
+                <button
+                  onClick={() => setSelectedPackage(null)}
+                  className="flex-1 flex items-center justify-center gap-3 bg-white hover:bg-gray-50 text-gray-700 font-bold text-lg py-5 px-6 rounded-xl transition-all duration-300 border-2 border-gray-300 hover:border-gray-400"
+                >
+                  <Phone className="w-7 h-7" />
+                  Call Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

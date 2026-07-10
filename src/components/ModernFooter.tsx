@@ -1,6 +1,6 @@
 import { Phone, MessageCircle, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Linkedin, ChevronRight } from 'lucide-react';
 
-type Page = 'home' | 'about' | 'contact' | 'packages';
+type Page = 'home' | 'about' | 'contact' | 'packages' | 'cart';
 
 interface ModernFooterProps {
   onNavigate?: (page: Page) => void;
@@ -133,6 +133,7 @@ export default function ModernFooter({ onNavigate }: ModernFooterProps) {
                 { name: 'About Us', page: 'about' as Page },
                 { name: 'Our Services', page: 'home' as Page },
                 { name: 'Health Packages', page: 'packages' as Page },
+                { name: 'Cart', page: 'cart' as Page },
                 { name: 'Book Test', page: 'home' as Page },
                 { name: 'Upload Prescription', page: 'contact' as Page },
                 { name: 'Home Collection', page: 'contact' as Page }
@@ -151,19 +152,6 @@ export default function ModernFooter({ onNavigate }: ModernFooterProps) {
           </div>
 
           {/* Services */}
-          <div>
-            <h4 className="font-semibold mb-4">Our Services</h4>
-            <ul className="space-y-3">
-              {['Lab Testing', 'ECG', 'TMT', 'PFT', 'X-Ray', 'Health Packages', 'Home Collection'].map((service, index) => (
-                <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-teal-400 transition-colors duration-200 flex items-center gap-2">
-                    <ChevronRight className="w-4 h-4" />
-                    {service}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
 
           {/* Service Areas */}
           <div>

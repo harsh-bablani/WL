@@ -177,13 +177,6 @@ export default function BlogHealthTips() {
               </div>
             </div>
 
-            {/* View All Button */}
-            <div className="text-center">
-              <button className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
-                <span>View All Articles</span>
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </div>
           </div>
 
           {/* Health Tips */}

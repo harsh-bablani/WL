@@ -193,41 +193,7 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Meet Our Expert Team</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Led by renowned healthcare professionals dedicated to your well-being
-            </p>
-          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {teamMembers.map((member, index) => (
-              <div
-                key={index}
-                className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-teal-600 transition-colors">
-                    {member.name}
-                  </h3>
-                  <p className="text-sm font-semibold text-teal-600 mb-2">{member.role}</p>
-                  <p className="text-sm text-gray-600">{member.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA Banner */}
       <section className="py-16 bg-gradient-to-r from-teal-500 to-cyan-600">

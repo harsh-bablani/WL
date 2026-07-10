@@ -1,6 +1,8 @@
-import { ShoppingCart, Plus, Clock, Star, Users, TrendingUp, TestTube } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { ShoppingCart, Star, TrendingUp, TestTube } from 'lucide-react';
+import { useCart } from '../contexts/CartContext';
 
-const popularTests = [
+export const popularTests = [
   {
     name: 'Complete Blood Count (CBC)',
     category: 'Hematology',
@@ -107,36 +109,82 @@ const popularTests = [
   }
 ];
 
-export default function PopularTestsSection() {
+interface PopularTestsSectionProps {
+  highlightedTestName?: string | null;
+}
+
+export default function PopularTestsSection({ highlightedTestName }: PopularTestsSectionProps) {
+  const { addToCart } = useCart();
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!highlightedTestName) {
+      return;
+    }
+
+    const matchingCard = Array.from(document.querySelectorAll<HTMLElement>('[data-test-name]')).find(
+      (card) => card.dataset.testName === highlightedTestName
+    );
+
+    if (matchingCard) {
+      matchingCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [highlightedTestName]);
+
+  const scrollSlider = (direction: 'left' | 'right') => {
+    if (!sliderRef.current) return;
+    sliderRef.current.scrollBy({
+      left: direction === 'left' ? -320 : 320,
+      behavior: 'smooth'
+    });
+  };
+
+  const handleAddToCart = (test: typeof popularTests[0]) => {
+    addToCart({
+      id: test.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      name: test.name,
+      testCount: test.parameters,
+      price: test.price,
+      originalPrice: test.originalPrice,
+      discount: test.discount,
+      color: 'from-teal-500 to-teal-600'
+    });
+  };
+
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
             <TestTube className="w-4 h-4" />
             Popular Tests
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
             Most Booked Diagnostic Tests
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Choose from our most frequently booked tests with fast reporting and accurate results
-          </p>
         </div>
 
         {/* Scrollable Cards Container */}
         <div className="relative">
           {/* Scroll Indicators */}
           <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
-            <button className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors duration-200">
+            <button
+              type="button"
+              onClick={() => scrollSlider('left')}
+              className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors duration-200"
+            >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
           </div>
           <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
-            <button className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors duration-200">
+            <button
+              type="button"
+              onClick={() => scrollSlider('right')}
+              className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors duration-200"
+            >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
@@ -144,31 +192,17 @@ export default function PopularTestsSection() {
           </div>
 
           {/* Test Cards */}
-          <div className="flex gap-6 overflow-x-auto pb-4 lg:pb-0 scrollbar-hide">
+          <div ref={sliderRef} className="flex gap-5 overflow-x-auto pb-4 lg:pb-0 scrollbar-hide px-1">
             {popularTests.map((test, index) => (
               <div
                 key={index}
-                className="flex-none w-80 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-teal-300 overflow-hidden group"
+                data-test-name={test.name}
+                className={`flex-none w-72 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border overflow-hidden group scroll-mt-28 relative ${
+                  highlightedTestName === test.name
+                    ? 'border-teal-500 ring-2 ring-teal-200 shadow-2xl'
+                    : 'border-gray-200 hover:border-teal-300'
+                }`}
               >
-                {/* Discount Badge */}
-                {test.discount && (
-                  <div className="absolute top-3 right-3 z-10">
-                    <div className="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                      {test.discount}% OFF
-                    </div>
-                  </div>
-                )}
-
-                {/* Popular Badge */}
-                {test.popular && (
-                  <div className="absolute top-3 left-3 z-10">
-                    <div className="bg-teal-500 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                      <TrendingUp className="w-3 h-3" />
-                      Popular
-                    </div>
-                  </div>
-                )}
-
                 {/* Test Content */}
                 <div className="p-6">
                   {/* Category */}
@@ -216,11 +250,7 @@ export default function PopularTestsSection() {
                   </div>
 
                   {/* Test Info */}
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      <span>{test.reportTime}</span>
-                    </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
                     <div className="flex items-center gap-1">
                       <TestTube className="w-4 h-4" />
                       <span>{test.parameters} parameters</span>
@@ -229,12 +259,13 @@ export default function PopularTestsSection() {
 
                   {/* Action Buttons */}
                   <div className="flex gap-2">
-                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
+                    <button
+                      type="button"
+                      onClick={() => handleAddToCart(test)}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+                    >
                       <ShoppingCart className="w-4 h-4" />
                       Book Now
-                    </button>
-                    <button className="flex items-center justify-center px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-all duration-200">
-                      <Plus className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -242,34 +273,7 @@ export default function PopularTestsSection() {
             ))}
           </div>
         </div>
-
-        {/* View All Button */}
-        <div className="text-center mt-8">
-          <button className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
-            <span>View All Tests</span>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Bottom Stats */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { number: '200+', label: 'Tests Available' },
-            { number: '6 Hours', label: 'Fast Reporting' },
-            { number: '50K+', label: 'Tests Per Month' },
-            { number: '100%', label: 'Accuracy Guaranteed' }
-          ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-3xl font-bold text-teal-600 mb-1">{stat.number}</div>
-              <p className="text-sm text-gray-600">{stat.label}</p>
-            </div>
-          ))}
-        </div>
       </div>
-
-      {/* Note: Custom scrollbar styles can be added via CSS or Tailwind utilities */}
     </section>
   );
 }

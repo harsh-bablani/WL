@@ -84,9 +84,6 @@ export default function PopularTests() {
             <span className="text-teal-500 font-semibold text-sm uppercase tracking-wider">Most Booked</span>
             <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-gray-900">Popular Diagnostic Tests</h2>
           </div>
-          <button className="text-teal-600 font-semibold text-sm hover:underline underline-offset-4">
-            View All Tests →
-          </button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
